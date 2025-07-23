@@ -3,12 +3,14 @@
 <%- include ('../partials/head') %>
 <body>
     <div id="wrapper">
-        <%- include ('../partials/header') %>
-        <%- include ('../partials/navigation') %>
-        <main>
-            <%- body %>
-            <%- include('../partials/footer')%>
+      <div class="checker-bg">
+        <main class="main-card">
+          <%- include ('../partials/header') %>
+          <%- include ('../partials/navigation') %>
+          <%- body %>
+          <%- include('../partials/footer')%>
         </main>
+      </div>
     </div>
 </body>
 </html>

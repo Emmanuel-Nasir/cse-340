@@ -1,6 +1,319 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
+/* Centered footer styling */
+.site-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 2rem;
+  color: #888;
+  font-size: 1.08rem;
+  font-weight: 500;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  letter-spacing: 0.2px;
+}
+.site-footer p {
+  margin: 0;
+}
+
+/* --- CLEAN DARK THEME CSE MOTORS --- */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #181a1b;
+  color: #f3f3f3;
+  margin: 0;
+  min-height: 100vh;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.checker-bg {
+  background: url('/images/site/checkerboard.jpg');
+  min-height: 100vh;
+  padding: 0;
+}
+
+.main-card {
+  background: #23272a;
+  border: 3px solid #00bfff;
+  max-width: 1100px;
+  margin: 3rem auto;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main-header.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: inherit;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  padding: 2.2rem 2.5rem 1.2rem 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+.main-header.card-header .logo {
+  color: #00bfff;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  display: inline;
+}
+.main-header.card-header .account-btn {
+  background: none;
+  color: #f3f3f3;
+  font-size: 1.08rem;
+  font-weight: 400;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin-left: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  display: inline;
+}
+.main-header.card-header .account-btn:hover {
+  color: #00bfff;
+  background: none;
+  border: none;
+}
+/* Remove centering group for header, use flex row for edge alignment */
+/* Remove legacy logo and account-btn styles for clarity */
+
+.main-nav.card-nav {
+  background: #23272a;
+  border: none;
+  border-radius: 0;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.main-nav.card-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.main-nav.card-nav li {
+  margin: 0;
+}
+.main-nav.card-nav a {
+  color: #f3f3f3;
+  background: #23272a;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.13rem;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid #00bfff;
   box-sizing: border-box;
+  display: block;
+  text-align: center;
+}
+.main-nav.card-nav a:hover {
+  background: #00bfff;
+  color: #23272a;
+}
+
+@media screen and (max-width: 600px) {
+  .main-nav.card-nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .main-nav.card-nav a {
+    width: 100%;
+    display: block;
+    text-align: left;
+  }
+}
+
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+.hero-grid h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00bfff;
+  margin-bottom: 0.7rem;
+}
+.hero-grid img {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 8px;
+  background: #23272a;
+  border: 2px solid #00bfff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+.own-now {
+  background-color: #00bfff;
+  color: #23272a;
+  padding: 0.7rem 2.2rem;
+  display: inline-block;
+  margin-top: 1.2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.18rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid #00bfff;
+}
+.own-now:hover {
+  background: #23272a;
+  color: #00bfff;
+}
+
+.extra-grid {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+.reviews, .upgrades {
+  text-align: center;
+}
+.upgrades h2, .reviews h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.reviews ul {
+  text-align: left;
+  padding-left: 1.2rem;
+  margin: 0 auto;
+  max-width: 400px;
+  color: #f3f3f3;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.3rem;
+  margin-top: 1.2rem;
+  justify-items: center;
+}
+.upgrade-grid > div {
+  background: #23272a;
+  border: 2px solid #00bfff;
+  border-radius: 10px;
+  padding: 1.1rem 0.7rem 0.7rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+  min-height: 180px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0,187,255,0.08);
+}
+.upgrade-grid img {
+  max-width: 90px;
+  height: auto;
+  margin-bottom: 0.5rem;
+  border: 2px solid #00bfff;
+  background: #23272a;
+  border-radius: 8px;
+}
+.upgrade-grid a {
+  display: block;
+  color: #00bfff;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  text-decoration: underline;
+  font-size: 1.13rem;
+  letter-spacing: 0.3px;
+}
+.upgrade-grid a:hover {
+  color: #fff;
+}
+
+@media screen and (min-width: 900px) {
+  .checker-bg {
+    padding: 2.5rem 0;
+  }
+  .main-card {
+    margin: 4rem auto;
+    padding: 3.5rem 4rem 3rem 4rem;
+  }
+  .hero-grid {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+  .hero-grid img {
+    max-width: 420px;
+  }
+  .hero-grid > div {
+    max-width: 60%;
+    text-align: left;
+  }
+  .extra-grid {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  .upgrades, .reviews {
+    flex: 1;
+    min-width: 0;
+  }
+  .reviews ul {
+    max-width: 500px;
+  }
+  .upgrade-grid {
+    grid-template-columns: repeat(2, 160px);
+    gap: 2rem;
+  }
+  .upgrade-grid img {
+    max-width: 120px;
+  }
+}
+
+/* Centered footer styling */
+.site-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 2rem;
+  color: #888;
+  font-size: 1.08rem;
+  font-weight: 500;
+  width: 100%;
+  padding-bottom: 0.5rem;
+  letter-spacing: 0.2px;
+}
+.site-footer p {
+  margin: 0;
 }
