@@ -93,7 +93,7 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 4rem;
+
 }
 
 nav li {
@@ -239,6 +239,71 @@ nav a.active {
 .own-now:hover {
   background: #23272a;
   color: #00bfff;
+}
+
+/* Inventory grid styling */
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+  list-style: none;
+  margin: 0;
+}
+
+#inv-display li {
+  background: #181b1f;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,191,255,0.10);
+  padding: 1.2rem 1rem 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+#inv-display li:hover {
+  box-shadow: 0 8px 24px rgba(0,191,255,0.18);
+  transform: translateY(-6px) scale(1.03);
+}
+
+#inv-display img {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.10);
+  background: #23272a;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#inv-display img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,191,255,0.18);
+}
+
+#inv-display .namePrice {
+  width: 100%;
+  text-align: center;
+}
+
+#inv-display h2 {
+  font-size: 1.15rem;
+  margin: 0.5rem 0 0.3rem 0;
+  color: #00bfff;
+}
+
+#inv-display span {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: #23272a;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 0.3rem;
 }
 
 /* Responsive adjustments */
