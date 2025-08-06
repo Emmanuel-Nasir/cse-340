@@ -20,17 +20,20 @@ invCont.buildByClassificationId = async function (req, res, next) {
 }
 
 /* ***************************
- *  Build inventory detail view
+ *  Build vehicle detail view
  * ************************** */
-invCont.buildByInvId = async function (req, res, next) {
-  const inv_id = req.params.inv_id
+invCont.buildDetailView = async function (req, res, next) {
+  const inv_id = req.params.invId
   const data = await invModel.getInventoryById(inv_id)
-  const nav = await utilities.getNav()
-  // You need to build the HTML for the vehicle details, or pass the data to the view
-  res.render("inventory/detail", {
-    title: data.inv_make + " " + data.inv_model,
+  let nav = await utilities.getNav()
+  if (!data || data.length === 0) {
+    return res.status(404).render("error", { title: "Not Found", nav, message: "Vehicle not found." })
+  }
+  const vehicle = data[0]
+  res.render("./inventory/detail", {
+    title: `${vehicle.inv_make} ${vehicle.inv_model} Details`,
     nav,
-    vehicle: data,
+    vehicle,
   })
 }
 

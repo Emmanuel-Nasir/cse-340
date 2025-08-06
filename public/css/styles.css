@@ -306,6 +306,82 @@ nav a.active {
   margin-top: 0.3rem;
 }
 
+/* Vehicle Detail Page Styling */
+.vehicle-detail {
+  padding: 2.5rem 2rem;
+  background: #23272a;
+  border-radius: 16px;
+  max-width: 700px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 32px rgba(0,191,255,0.10);
+}
+
+.vehicle-detail h1 {
+  color: #00bfff;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.vehicle-info {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  align-items: flex-start;
+  background: #181b1f;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,191,255,0.10);
+  padding: 2rem 1.5rem;
+}
+
+.vehicle-info img {
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.13);
+  background: #23272a;
+  margin-right: 1.5rem;
+}
+
+.vehicle-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #f3f3f3;
+  font-size: 1.13rem;
+  line-height: 2;
+}
+
+.vehicle-info li {
+  margin-bottom: 0.5rem;
+}
+
+.vehicle-info strong {
+  color: #00bfff;
+  font-weight: 700;
+}
+
+/* Responsive for mobile */
+@media (max-width: 800px) {
+  .vehicle-info {
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 0.5rem;
+    gap: 1.5rem;
+  }
+  .vehicle-info img {
+    margin-right: 0;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+  .vehicle-detail {
+    padding: 1.2rem 0.5rem;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 900px) {
   #wrapper {
