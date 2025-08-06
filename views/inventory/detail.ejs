@@ -1,0 +1,13 @@
+<% if (vehicle) { %>
+  <h1><%= vehicle.inv_make %> <%= vehicle.inv_model %></h1>
+  <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+  <ul>
+    <li>Year: <%= vehicle.inv_year %></li>
+    <li>Price: $<%= vehicle.inv_price.toLocaleString() %></li>
+    <li>Miles: <%= vehicle.inv_miles.toLocaleString() %></li>
+    <li>Color: <%= vehicle.inv_color %></li>
+    <li>Description: <%= vehicle.inv_description %></li>
+  </ul>
+<% } else { %>
+  <p>Vehicle not found.</p>
+<% } %>
