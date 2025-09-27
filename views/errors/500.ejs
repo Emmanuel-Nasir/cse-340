@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>500 - Server Error</h1>
+  <p>Sorry, something went wrong on the server.</p>
+
+  <% if (error) { %>
+    <h2>Error Details:</h2>
+    <pre><%= error.stack %></pre>
+  <% } %>
+
+  <% if (nav) { %>
+    <nav><%= nav %></nav>
+  <% } %>
+
+  <p><a href="/">Return Home</a></p>
+</body>
+</html>

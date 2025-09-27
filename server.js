@@ -1,47 +1,109 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express")
-const expressLayouts = require("express-ejs-layouts") 
-const env = require("dotenv").config()
-const app = express()
+const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
+const env = require("dotenv").config();
+const session = require("express-session");
+const flash = require("connect-flash");
+const messages = require("express-messages");
+const pgSession = require("connect-pg-simple")(session);
 
-const static = require("./routes/static")
-const baseController = require("./controllers/baseController")
-const inventoryRoute = require("./routes/inventoryRoute")
-/* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") 
+const app = express();
 
-/* ***********************
- * Routes
- *************************/
+// Database Pool
+const pool = require("pg");
 
-app.use(static)
+// Controllers & Routes
+const baseController = require("./controllers/baseController");
+const inventoryRoute = require("./routes/inventoryRoute");
+const accountRoute = require("./routes/accountRoute");
+const staticRoutes = require("./routes/static");
+const utilities = require("./utilities");
 
-// Index route
-app.get("/", baseController.buildHome)
+// --------------------
+// View engine setup
+// --------------------
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "./layouts/layout");
 
-// Inventory routes
-app.use("/inv", inventoryRoute)
+// --------------------
+// Body parsing
+// --------------------
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
-const port = process.env.PORT
-const host = process.env.HOST
+// --------------------
+// Static files
+// --------------------
+app.use(staticRoutes);
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
+// --------------------
+// Session Setup
+// --------------------
+app.use(
+  session({
+    store: new pgSession({
+      createTableIfMissing: true,
+      pool,
+    }),
+    secret: process.env.SESSION_SECRET || "defaultSecret",
+    resave: true,
+    saveUninitialized: true,
+    name: "sessionId",
+  })
+);
+
+// Flash messages
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.messages = messages(req, res);
+  next();
+});
+
+// --------------------
+// Routes
+// --------------------
+app.get("/", baseController.buildHome);
+app.use("/account", accountRoute);
+app.use("/inv", inventoryRoute);
+
+// --------------------
+// 404 handler
+// --------------------
+app.use(async (req, res, next) => {
+  try {
+    const nav = await utilities.getNav();
+    res.status(404).render("errors/404", {
+      title: "404 Not Found",
+      nav,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// --------------------
+// 500 error handler
+// --------------------
+app.use(async (err, req, res, next) => {
+  console.error(err.stack); // log the error
+  try {
+    const nav = await utilities.getNav();
+    res.status(500).render("errors/500", {
+      title: "Server Error",
+      nav,
+      error: err, // pass full error object
+    });
+  } catch (error) {
+    res.status(500).send("Critical server error");
+  }
+});
+
+// --------------------
+// Start server
+// --------------------
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || "localhost";
+
 app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+  console.log(`App listening on ${host}:${port}`);
+});

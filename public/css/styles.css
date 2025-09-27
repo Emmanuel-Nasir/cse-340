@@ -56,23 +56,56 @@ header, .site-header {
   font-weight: 700;
   border-radius: 16px 16px 0 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* push items to ends */
   align-items: center;
   letter-spacing: 1px;
   border-bottom: 1.5px solid #00bfff;
   box-shadow: 0 2px 8px rgba(0,191,255,0.04);
 }
 
-header a {
-  color: #00bfff;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  transition: color 0.2s;
+/* Account and login styles */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
 }
 
-header a:hover {
-  color: #fff;
+.header-actions .account-link {
+  background: linear-gradient(90deg, #00bfff 0%, #00e6e6 100%);
+  color: #23272a !important;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.5rem 1.3rem;
+  font-size: 1.08rem;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.13);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+  margin-left: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.header-actions .account-link:hover,
+.header-actions .account-link:focus {
+  background: linear-gradient(90deg, #00e6e6 0%, #00bfff 100%);
+  color: #fff !important;
+  box-shadow: 0 4px 16px rgba(0,191,255,0.18);
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+/* Remove header-actions .login-link from header navigation */
+.header-actions .login-link {
+  display: none;
+}
+
+.header-actions .login-link:hover,
+.header-actions .login-link:focus {
+  background: linear-gradient(90deg, #00e6e6 0%, #00bfff 100%);
+  color: #23272a !important;
+  box-shadow: 0 4px 16px rgba(0,191,255,0.18);
+  transform: scale(1.07);
+  text-decoration: none;
+  border-color: #00e6e6;
 }
 
 /* NAVIGATION */
@@ -858,6 +891,205 @@ button.pulse {
 
 .u-scroll-hidden {
   overflow: hidden !important;
+}
+
+/* Centralize the whole login page */
+.login-page-wrapper {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #23272a;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Login form styling */
+.login-form {
+  margin: 0;
+  box-shadow: 0 2px 12px rgba(0,191,255,0.10);
+  padding: 1.2rem 1rem;
+  max-width: 260px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #181b1f;
+}
+
+.login-form h2 {
+  color: #00bfff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.login-form label {
+  color: #00bfff;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
+  text-align: left;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1.5px solid #00bfff;
+  background: #23272a;
+  color: #f3f3f3;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: border 0.2s;
+  box-sizing: border-box;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #00e6e6;
+  outline: none;
+}
+
+.login-form button,
+.login-form input[type="submit"] {
+  background: linear-gradient(90deg, #00bfff 0%, #00e6e6 100%);
+  color: #23272a;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.08rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.13);
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+}
+
+.login-form button:hover,
+.login-form input[type="submit"]:hover {
+  background: linear-gradient(90deg, #00e6e6 0%, #00bfff 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,191,255,0.18);
+  transform: scale(1.03);
+}
+
+.login-form .register-link {
+  color: #00bfff;
+  text-decoration: underline;
+  font-weight: 600;
+  margin-top: 1rem;
+  display: inline-block;
+  transition: color 0.2s;
+  font-size: 0.98rem;
+}
+
+.login-form .register-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Register form page wrapper */
+.register-page-wrapper {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #23272a;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Register form styling */
+.register-form {
+  margin: 0;
+  box-shadow: 0 2px 12px rgba(0,191,255,0.10);
+  padding: 1.2rem 1rem;
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #181b1f;
+}
+
+.register-form h2 {
+  color: #00bfff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.register-form label {
+  color: #00bfff;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
+  text-align: left;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1.5px solid #00bfff;
+  background: #23272a;
+  color: #f3f3f3;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: border 0.2s;
+  box-sizing: border-box;
+}
+
+.register-form input[type="text"]:focus,
+.register-form input[type="email"]:focus,
+.register-form input[type="password"]:focus {
+  border-color: #00e6e6;
+  outline: none;
+}
+
+.register-form button,
+.register-form input[type="submit"] {
+  background: linear-gradient(90deg, #00bfff 0%, #00e6e6 100%);
+  color: #23272a;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.08rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.13);
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+}
+
+.register-form button:hover,
+.register-form input[type="submit"]:hover {
+  background: linear-gradient(90deg, #00e6e6 0%, #00bfff 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,191,255,0.18);
+  transform: scale(1.03);
 }
 
 /* End of CSS file */
