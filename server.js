@@ -5,15 +5,23 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const messages = require("express-messages");
 const pgSession = require("connect-pg-simple")(session);
+const { Pool } = require("pg"); // ✅ fixed pool import
 
 const app = express();
 
-// Database Pool
-const pool = require("pg");
+// --------------------
+// Database Pool (Render-compatible)
+// --------------------
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+});
 
+// --------------------
 // Controllers & Routes
+// --------------------
 const baseController = require("./controllers/baseController");
-const inventoryRoute = require("./routes/inventoryRoute");
+// const inventoryRoute = require("./routes/inventoryRoute"); // temporarily disabled
 const accountRoute = require("./routes/accountRoute");
 const staticRoutes = require("./routes/static");
 const utilities = require("./utilities");
@@ -64,7 +72,7 @@ app.use((req, res, next) => {
 // --------------------
 app.get("/", baseController.buildHome);
 app.use("/account", accountRoute);
-app.use("/inv", inventoryRoute);
+// app.use("/inv", inventoryRoute); // disabled until ready
 
 // --------------------
 // 404 handler
@@ -102,8 +110,6 @@ app.use(async (err, req, res, next) => {
 // Start server
 // --------------------
 const port = process.env.PORT || 3000;
-const host = process.env.HOST || "localhost";
-
 app.listen(port, () => {
-  console.log(`App listening on ${host}:${port}`);
+  console.log(`App listening on port ${port}`);
 });
