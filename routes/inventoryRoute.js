@@ -30,4 +30,6 @@ router.get("/type/:classificationId", invController.buildByClassificationId)
 //View Inventory Detail
 router.get("/detail/:invId", invController.buildInventoryDetail)
 
+// Intentional error route for testing 500 page
+router.get("/trigger-error", invController.throwError)
 module.exports = router

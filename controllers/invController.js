@@ -186,5 +186,13 @@ invController.buildInventoryDetail = async function (req, res, next) {
     next(error)
   }
 }
+// Intentional error trigger
+invController.throwError = async function (req, res, next) {
+  try {
+    throw new Error("Intentional server error for testing 500 page")
+  } catch (err) {
+    next(err) // Pass error to middleware
+  }
+}
 
 module.exports = invController
