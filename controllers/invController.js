@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
+const invController = {}
 /* ****************************************
 *  Build Management View
 * *************************************** */
@@ -122,7 +123,7 @@ invController.buildByClassificationId = async function (req, res, next) {
     return res.status(400).render("inventory/classification", {
       title: "Invalid Request",
       nav: await utilities.getNav(),
-      vehicles: [],
+      grid: "<p>No vehicles available.</p>", // fallback so EJS doesn’t break
     })
   }
 
@@ -130,23 +131,25 @@ invController.buildByClassificationId = async function (req, res, next) {
   try {
     const data = await invModel.getInventoryByClassificationId(classificationId)
     if (data && data.length > 0) {
+      const grid = await utilities.buildClassificationGrid(data) // ✅ Build grid here
       res.render("inventory/classification", {
         title: data[0].classification_name + " Vehicles",
         nav,
-        vehicles: data,
+        grid, // ✅ EJS will now see "grid"
       })
     } else {
       req.flash("notice", "No vehicles found for this classification.")
       res.status(404).render("inventory/classification", {
         title: "No Vehicles Found",
         nav,
-        vehicles: [],
+        grid: "<p>No vehicles available.</p>", // fallback
       })
     }
   } catch (error) {
     next(error)
   }
 }
+
 
 /* ****************************************
 *  Build Vehicle Detail
