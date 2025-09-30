@@ -10,7 +10,6 @@ invModel.addClassification = async function (classification_name) {
     const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
     const result = await pool.query(sql, [classification_name]);
 
-    // Return rowCount to indicate success, plus the inserted row
     return { rowCount: result.rowCount, row: result.rows[0] };
   } catch (error) {
     console.error("Add Classification Error:", error);
@@ -40,7 +39,18 @@ invModel.addInventory = async function (inventoryData) {
       classification_id,
     } = inventoryData;
 
-    const data = [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id];
+    const data = [
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+    ];
 
     const result = await pool.query(sql, data);
 
@@ -64,5 +74,47 @@ invModel.getClassifications = async function () {
     return { rows: [] };
   }
 };
+
+/* ************************
+ * Get inventory by classification ID
+ ************************** */
+invModel.getInventoryByClassificationId = async function (classification_id) {
+  try {
+    const sql = `
+      SELECT inv.*, c.classification_name
+      FROM inventory AS inv
+      JOIN classification AS c
+        ON inv.classification_id = c.classification_id
+      WHERE inv.classification_id = $1
+      ORDER BY inv.inv_make, inv.inv_model
+    `;
+    const result = await pool.query(sql, [classification_id]);
+    return result.rows;
+  } catch (error) {
+    console.error("Get Inventory By Classification Error:", error);
+    return [];
+  }
+};
+/* ************************
+ * Get vehicle details by ID
+ ************************** */
+invModel.getInventoryDetailById = async function (invId) {
+  try {
+    const sql = `
+      SELECT inv.*, c.classification_name
+      FROM inventory AS inv
+      JOIN classification AS c
+        ON inv.classification_id = c.classification_id
+      WHERE inv.inv_id = $1
+    `
+    const result = await pool.query(sql, [invId])
+    return result.rows[0] // return single vehicle
+  } catch (error) {
+    console.error("Get Inventory Detail Error:", error)
+    return null
+  }
+}
+
+
 
 module.exports = invModel;

@@ -1,15 +1,19 @@
 <main class="vehicle-detail">
   <h1><%= title %></h1>
   <div class="vehicle-info">
-    <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
-    <ul>
-      <li><strong>Make:</strong> <%= vehicle.inv_make %></li>
-      <li><strong>Model:</strong> <%= vehicle.inv_model %></li>
-      <li><strong>Year:</strong> <%= vehicle.inv_year %></li>
-      <li><strong>Price:</strong> $<%= vehicle.inv_price.toLocaleString() %></li>
-      <li><strong>Description:</strong> <%= vehicle.inv_description %></li>
-      <li><strong>Miles:</strong> <%= vehicle.inv_miles.toLocaleString() %></li>
-      <li><strong>Color:</strong> <%= vehicle.inv_color %></li>
-    </ul>
+    <% if (vehicle) { %>
+      <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+      <ul>
+        <li><strong>Make:</strong> <%= vehicle.inv_make %></li>
+        <li><strong>Model:</strong> <%= vehicle.inv_model %></li>
+        <li><strong>Year:</strong> <%= vehicle.inv_year %></li>
+        <li><strong>Price:</strong> $<%= vehicle.inv_price.toLocaleString() %></li>
+        <li><strong>Description:</strong> <%= vehicle.inv_description %></li>
+        <li><strong>Miles:</strong> <%= vehicle.inv_miles.toLocaleString() %></li>
+        <li><strong>Color:</strong> <%= vehicle.inv_color %></li>
+      </ul>
+    <% } else { %>
+      <p>Vehicle details not available.</p>
+    <% } %>
   </div>
 </main>

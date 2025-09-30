@@ -21,7 +21,7 @@ const pool = new Pool({
 // Controllers & Routes
 // --------------------
 const baseController = require("./controllers/baseController");
-// const inventoryRoute = require("./routes/inventoryRoute"); // temporarily disabled
+const inventoryRoute = require("./routes/inventoryRoute"); 
 const accountRoute = require("./routes/accountRoute");
 const staticRoutes = require("./routes/static");
 const utilities = require("./utilities");
@@ -72,7 +72,7 @@ app.use((req, res, next) => {
 // --------------------
 app.get("/", baseController.buildHome);
 app.use("/account", accountRoute);
-// app.use("/inv", inventoryRoute); // disabled until ready
+app.use("/inv", inventoryRoute); 
 
 // --------------------
 // 404 handler
