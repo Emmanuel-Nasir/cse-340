@@ -5,26 +5,19 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const messages = require("express-messages");
 const pgSession = require("connect-pg-simple")(session);
-const { Pool } = require("pg"); // ✅ fixed pool import
+const pool = require("./database/");
+const utilities = require("./utilities");
 
 const app = express();
-
-// --------------------
-// Database Pool (Render-compatible)
-// --------------------
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
 
 // --------------------
 // Controllers & Routes
 // --------------------
 const baseController = require("./controllers/baseController");
-const inventoryRoute = require("./routes/inventoryRoute"); 
+const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
+const homeRoute = require("./routes/homeRoute");
 const staticRoutes = require("./routes/static");
-const utilities = require("./utilities");
 
 // --------------------
 // View engine setup
@@ -36,16 +29,13 @@ app.set("layout", "./layouts/layout");
 // --------------------
 // Body parsing
 // --------------------
-app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // --------------------
-// Static files
-// --------------------
-app.use(staticRoutes);
-
-// --------------------
-// Session Setup
+// Session middleware
+// Must come BEFORE routes that use req.session
 // --------------------
 app.use(
   session({
@@ -53,26 +43,35 @@ app.use(
       createTableIfMissing: true,
       pool,
     }),
-    secret: process.env.SESSION_SECRET || "defaultSecret",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     name: "sessionId",
   })
 );
 
+// --------------------
 // Flash messages
+// --------------------
 app.use(flash());
-app.use((req, res, next) => {
+app.use(function (req, res, next) {
   res.locals.messages = messages(req, res);
   next();
 });
+
+// --------------------
+// Static files
+// --------------------
+app.use(staticRoutes);
+
 
 // --------------------
 // Routes
 // --------------------
 app.get("/", baseController.buildHome);
 app.use("/account", accountRoute);
-app.use("/inv", inventoryRoute); 
+app.use("/", homeRoute);
+app.use("/inv", inventoryRoute);
 
 // --------------------
 // 404 handler
@@ -93,13 +92,13 @@ app.use(async (req, res, next) => {
 // 500 error handler
 // --------------------
 app.use(async (err, req, res, next) => {
-  console.error(err.stack); // log the error
+  console.error(err.stack);
   try {
     const nav = await utilities.getNav();
     res.status(500).render("errors/500", {
       title: "Server Error",
       nav,
-      error: err, // pass full error object
+      error: err,
     });
   } catch (error) {
     res.status(500).send("Critical server error");

@@ -9,7 +9,18 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
+    errors: null
   })
+}
+
+/* ****************************************
+*  Process Login
+* *************************************** */
+async function loginAccount(req, res) {
+  const { account_email, account_password } = req.body
+  // For now, just redirect to home after submitting login form
+  // (you can implement full password validation later)
+  return res.redirect("/")
 }
 
 /* ****************************************
@@ -44,7 +55,6 @@ async function registerAccount(req, res) {
   }
 }
 
-
 /* ****************************************
 *  Deliver registration view
 * *************************************** */
@@ -56,4 +66,5 @@ async function buildRegister(req, res, next) {
     errors: null
   })
 }
-module.exports = { buildLogin, buildRegister, registerAccount }
+
+module.exports = { buildLogin, buildRegister, registerAccount, loginAccount }

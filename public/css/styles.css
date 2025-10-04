@@ -1092,4 +1092,34 @@ button.pulse {
   transform: scale(1.03);
 }
 
+.return-home-btn {
+  background: linear-gradient(90deg, #00bfff 0%, #00e6e6 100%);
+  color: #23272a !important;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.13);
+}
+
+.return-home-btn:hover,
+.return-home-btn:focus {
+  background: linear-gradient(90deg, #00e6e6 0%, #00bfff 100%);
+  color: #fff !important;
+}
+
+.error-link {
+  color: #ff3860 !important;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.error-link:hover,
+.error-link:focus {
+  color: #fff !important;
+}
+
 /* End of CSS file */
