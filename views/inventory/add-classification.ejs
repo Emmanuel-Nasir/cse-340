@@ -8,7 +8,13 @@
       <% }) %>
     </div>
   <% } %>
+  <% if (typeof message !== "undefined" && message) { %>
+    <div class="notice"><%= message %></div>
+  <% } %>
+  <h5>Requirements:
+    <em>Only letters allowed <ul><li>No spaces</li><li>No numbers</li><li>No special characters</li></ul></em>
 
+  </h5>
   <form action="/inv/add-classification" method="post" id="add-classification-form" onsubmit="return validateClassificationForm()">
     <label for="classification_name">Classification Name</label>
     <input
