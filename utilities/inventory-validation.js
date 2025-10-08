@@ -64,10 +64,14 @@ invValidate.inventoryRules = () => {
   ];
 };
 
-invValidate.checkInventoryData = (req, res, next) => {
+invValidate.checkInventoryData = async(req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const nav = res.locals.nav;
+    const invModel = require("../models/inventory-model");
+    const utilities = require("../utilities");
+    const classification = await invModel.getClassifications();
+    const classificationSelect = await utilities.buildClassificationList(classifications, req.body.classification_id);
     return res.render("inventory/add-inventory", {
       title: "Add Inventory",
       nav,

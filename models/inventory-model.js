@@ -68,10 +68,10 @@ invModel.getClassifications = async function () {
   try {
     const sql = "SELECT * FROM classification ORDER BY classification_name";
     const result = await pool.query(sql);
-    return result;
+    return result.rows; // Return only the rows
   } catch (error) {
     console.error("Get Classifications Error:", error);
-    return { rows: [] };
+    return [];
   }
 };
 
@@ -95,6 +95,7 @@ invModel.getInventoryByClassificationId = async function (classification_id) {
     return [];
   }
 };
+
 /* ************************
  * Get vehicle details by ID
  ************************** */
@@ -106,15 +107,13 @@ invModel.getInventoryDetailById = async function (invId) {
       JOIN classification AS c
         ON inv.classification_id = c.classification_id
       WHERE inv.inv_id = $1
-    `
-    const result = await pool.query(sql, [invId])
-    return result.rows[0] // return single vehicle
+    `;
+    const result = await pool.query(sql, [invId]);
+    return result.rows[0];
   } catch (error) {
-    console.error("Get Inventory Detail Error:", error)
-    return null
+    console.error("Get Inventory Detail Error:", error);
+    return null;
   }
-}
-
-
+};
 
 module.exports = invModel;

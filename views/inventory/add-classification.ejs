@@ -1,38 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Add Classification</title>
-  <script>
-    function validateClassificationForm() {
-      const name = document.getElementById('classification_name').value;
-      const regex = /^[A-Za-z0-9]+$/;
-      if (!regex.test(name)) {
-        alert('Classification name cannot contain spaces or special characters.');
-        return false;
-      }
-      return true;
+<main class="add-classification-view">
+  <h1>Add Classification</h1>
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="validation-errors">
+      <% errors.forEach(function(error) { %>
+        <p><%= error.msg %></p>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <form action="/inv/add-classification" method="post" id="add-classification-form" onsubmit="return validateClassificationForm()">
+    <label for="classification_name">Classification Name</label>
+    <input
+      type="text"
+      id="classification_name"
+      name="classification_name"
+      pattern="^[A-Za-z]+$"
+      title="Only letters allowed (no spaces, numbers, or special characters)"
+      required
+      value="<%= classification_name ? classification_name : '' %>"
+    >
+    <button type="submit">Add Classification</button>
+  </form>
+</main>
+
+<script>
+  function validateClassificationForm() {
+    const name = document.getElementById('classification_name').value.trim();
+    const regex = /^[A-Za-z]+$/; // ✅ only letters
+    if (!regex.test(name)) {
+      alert('Classification name can only contain letters (no numbers, spaces, or special characters).');
+      return false;
     }
-  </script>
-</head>
-<body>
-  <div id="wrapper">
-    <h1>Add New Classification</h1>
-    <% if (typeof message !== "undefined" && message) { %>
-      <div class="notice"><%= message %></div>
-    <% } %>
-    <% if (typeof errors !== "undefined" && errors.errors && errors.errors.length) { %>
-      <ul class="notice">
-        <% errors.errors.forEach(function(error) { %>
-          <li><%= error.msg %></li>
-        <% }); %>
-      </ul>
-    <% } %>
-    <form action="/inv/add-classification" method="post" onsubmit="return validateClassificationForm()">
-      <label for="classification_name">Classification Name (no spaces or special characters):</label>
-      <input type="text" id="classification_name" name="classification_name" required pattern="^[A-Za-z0-9]+$" value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>">
-      <button type="submit">Add Classification</button>
-    </form>
-  </div>
-</body>
-</html>
+    return true;
+  }
+</script>

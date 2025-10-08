@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model");
 
 const Util = {};
 
+
 /* ************************
  * Wraps async route handlers to catch errors
  ************************ */
@@ -16,18 +17,17 @@ Util.handleErrors = function (fn) {
  ************************ */
 Util.getNav = async function () {
   try {
-    const data = await invModel.getClassifications();
+    const data = await invModel.getClassifications(); // this already returns an array
     let nav = "<ul>";
     nav += '<li><a href="/" title="Home page">Home</a></li>';
 
-    data.rows.forEach((row) => {
+    data.forEach((row) => {
       nav += `<li>
         <a href="/inv/type/${row.classification_id}" title="See our inventory of ${row.classification_name} vehicles">
           ${row.classification_name}
         </a>
       </li>`;
     });
-
 
     nav += "</ul>";
     return nav;
@@ -37,30 +37,41 @@ Util.getNav = async function () {
   }
 };
 
-/* ************************
- * Builds the classification <select> dropdown for forms
- ************************ */
-Util.buildClassificationList = async function (selectedId = null) {
-  try {
-    const data = await invModel.getClassifications();
-    let list = '<select name="classification_id" id="classificationList" required>';
-    list += "<option value=''>Choose a Classification</option>";
 
-    data.rows.forEach((row) => {
-      list += `<option value="${row.classification_id}"`;
-      if (selectedId != null && row.classification_id == selectedId) {
-        list += " selected";
-      }
-      list += `>${row.classification_name}</option>`;
-    });
+// /* ************************
+//  * Builds the classification <select> dropdown for forms
+//  ************************ */
+// Util.buildClassificationList = async function (selectedId = null) {
+//   try {
+//     const data = await invModel.getClassifications();
+//     let list = '<select name="classification_id" id="classificationList" required>';
+//     list += "<option value=''>Choose a Classification</option>";
 
-    list += "</select>";
-    return list;
-  } catch (error) {
-    console.error("Error building classification list:", error);
-    return '<select name="classification_id" id="classificationList"><option value="">No classifications available</option></select>';
-  }
-};
+//     data.rows.forEach((row) => {
+//       list += `<option value="${row.classification_id}"`;
+//       if (selectedId != null && row.classification_id == selectedId) {
+//         list += " selected";
+//       }
+//       list += `>${row.classification_name}</option>`;
+//     });
+
+//     list += "</select>";
+//     return list;
+//   } catch (error) {
+//     console.error("Error building classification list:", error);
+//     return '<select name="classification_id" id="classificationList"><option value="">No classifications available</option></select>';
+//   }
+// };
+Util.buildClassificationList = async function (classifications) {
+  let list = '<select name="classification_id" id="classification_id" required>'
+  list += '<option value="">Choose a Classification</option>'
+  classifications.forEach((classification) => {
+    list += `<option value="${classification.classification_id}">${classification.classification_name}</option>`
+  })
+  list += '</select>'
+  return list
+}
+
 
 /* ************************
  * Builds the inventory grid for classification views
